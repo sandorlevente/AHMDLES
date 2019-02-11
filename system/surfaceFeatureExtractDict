@@ -1,0 +1,97 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      surfaceFeatureExtractDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+body.stl
+{
+	#include "surfaceFeatureExtractDictDefaults"
+}
+
+ground.stl
+{
+	extractionMethod	extractFromSurface;
+
+		extractFromSurfaceCoeffs
+		{
+			// Mark edges whose adjacent surface normals are at an angle less
+			// than includedAngle as features
+			// - 0  : selects no edges
+			// - 180: selects all edges
+			includedAngle   175;
+		}
+
+		trimFeatures
+		{
+			Remove features with fewer than the specified number of edges
+		minElem         10;
+		}
+
+		subsetFeatures
+		{
+			// Keep nonManifold edges (edges with >2 connected faces)
+			nonManifoldEdges       no;
+
+			// Keep open edges (edges with 1 connected face)
+			openEdges       yes;
+		}
+
+		writeObj                yes;
+}
+left_front_wheel.stl
+	{
+		extractionMethod	extractFromSurface;
+
+		extractFromSurfaceCoeffs
+		{
+			// Mark edges whose adjacent surface normals are at an angle less
+			// than includedAngle as features
+			// - 0  : selects no edges
+			// - 180: selects all edges
+			includedAngle   165;
+		}
+
+		trimFeatures
+		{
+			Remove features with fewer than the specified number of edges
+		minElem         10;
+		}
+
+		subsetFeatures
+		{
+			// Keep nonManifold edges (edges with >2 connected faces)
+			nonManifoldEdges       no;
+
+			// Keep open edges (edges with 1 connected face)
+			openEdges       yes;
+		}
+
+		writeObj                yes;
+	}
+
+left_rear_wheel.stl
+{
+	#include "surfaceFeatureExtractDictDefaults"
+}
+left_front_axis.stl
+{
+	#include "surfaceFeatureExtractDictDefaults"
+}
+left_rear_axis.stl
+{
+	#include "surfaceFeatureExtractDictDefaults"
+}
+
+
+// ************************************************************************* //
